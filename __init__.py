@@ -1,3 +1,9 @@
-from . import db_models
-from . import favorites_db_methods
-from . import history_db_methods
+# from . import custom_handlers
+from . import collect_data_handlers, \
+    hotels_handlers, \
+    API_handlers, \
+    history_handler,\
+    favorites_handlers,\
+    default_handlers, \
+    echo_handlers, \
+    other_handlers

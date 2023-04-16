@@ -1,23 +1,22 @@
-from telebot.types import ReplyKeyboardMarkup, KeyboardButton
+from loader import bot
+from telebot.types import Message
+from keyboards.reply_keyboards.help import help_keyboard
 
 
-def help_keyboard() -> ReplyKeyboardMarkup:
+@bot.message_handler(commands=['help'])
+def help_command(message: Message) -> None:
     """
-    Создаёт клавиатуру с основными командами бота
-    :return: keyboard
-    :rtype: ReplyKeyboardMarkup
+    Функция справка (команда /help)
+    :param message: Объект сообщения.
+    :type message: Message
+    :return: None
     """
 
-    keyboard = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    lowprice = KeyboardButton('/lowprice')
-    highprice = KeyboardButton('/highprice')
-    bestdeal = KeyboardButton('/bestdeal')
-    history = KeyboardButton('/history')
-    favorites = KeyboardButton('/favorites')
-    help_button = KeyboardButton('/help')
-
-    keyboard.row(lowprice, highprice)
-    keyboard.row(favorites, bestdeal)
-    keyboard.row(history,  help_button)
-
-    return keyboard
+    bot.send_message(message.chat.id, "Вот, что я умею:\n"
+                                      "\n"
+                                      "/lowprice: Топ самых дешевых отелей по выбранному направлению\n"
+                                      "/highprice: Топ самых дорогих отелей по выбранному направлению\n"
+                                      "/bestdeal: Топ предложений по вашему запросу\n(близость к центру/цена)\n"
+                                      "/history: История поиска\n"
+                                      "/favorites: Избранные отели\n"
+                                      "/help: Повторный вывод справки", reply_markup=help_keyboard())
